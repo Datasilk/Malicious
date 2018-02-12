@@ -73,6 +73,8 @@ var text = File.ReadAllText('/Content/user/' + userId + '/' + Request.Query["id"
 
 ---
 
+Instead, check if the user input is valid before using it
+
 **Do**
 ```
 var id = 0;
@@ -92,11 +94,16 @@ Type type = Type.GetType("MyProject.Services." + paths[0]);
 MethodInfo method = type.GetMethod(paths[1]);
 ```
 
+---
+
+Instead, check a list of known strings to route
+
 **Do**
 ```
 var paths = Request.Path.ToString().Split("/");
 var className = "";
-switch(paths[0]){
+var path = paths[0].First().ToString().ToUpper() + paths[0].Substring(1); //capitalize path
+switch(path){
 	case "User": case "Projects": case "Home": case "Dashboard":
 	className = paths[0]; 
 	break;
